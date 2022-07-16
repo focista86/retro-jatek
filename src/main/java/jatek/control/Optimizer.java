@@ -19,6 +19,12 @@ public class Optimizer {
     static final String ROTATE_LEFT = "ROTATE_LEFT";
     static final String ROTATE_RIGHT = "ROTATE_RIGHT";
 
+
+    /**
+     * @param track A pálya
+     * @param current az elem amiről dönteni kell
+     * @return A current helyezéséhet szükséges lépések listája
+     */
     public List<String> getMostBasicSolution(TrackElement[][] track, TetrisElement current){
         List<String> solution = new ArrayList<>();
         String rotate = rotateToBaseLine(current);
