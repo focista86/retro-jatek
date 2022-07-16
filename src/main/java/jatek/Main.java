@@ -25,7 +25,7 @@ public class Main {
         try{
             startLogger();
             messageHandler = new TetrisMessageHandler(logger);
-            clientEndPoint = new WebsocketClientEndpoint(new URI("wss://tetris-backend-websocket.platform-dev.idomsoft.hu/tetris"), logger, messageHandler);
+            clientEndPoint = new WebsocketClientEndpoint(new URI("wss://tetris-backend-websocket.platform-dev.idomsoft.hu/api/tetris"), logger, messageHandler);
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(System.in));
             String command;
