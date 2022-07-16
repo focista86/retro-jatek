@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "5552be12-9d57-46d6-8b63-f23f101b57e5",
+		"name": "Tetris",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "startGame",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\":\"macskaMarcik\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://tetris-backend.platform-dev.idomsoft.hu/startGame",
+					"protocol": "https",
+					"host": [
+						"tetris-backend",
+						"platform-dev",
+						"idomsoft",
+						"hu"
+					],
+					"path": [
+						"startGame"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "move",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-username",
+						"value": "macskaMarcik",
+						"type": "default"
+					},
+					{
+						"key": "x-token",
+						"value": "e6e48975-c113-4d3f-8606-eac926313e73",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://tetris-backend.platform-dev.idomsoft.hu/control?movement=MOVE_LEFT",
+					"protocol": "https",
+					"host": [
+						"tetris-backend",
+						"platform-dev",
+						"idomsoft",
+						"hu"
+					],
+					"path": [
+						"control"
+					],
+					"query": [
+						{
+							"key": "movement",
+							"value": "MOVE_LEFT"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

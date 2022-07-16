@@ -1,0 +1,15 @@
+- ki kell találni a modelleket
+
+- kell egy game osztály, ami elindít egy játékot, megjegyzi a tokent
+
+- aktuális elemet vezérlő osztály
+    - moveLeft, moveRight, rotateLeft, rotateRight
+    - kell egy metódus, ami parancs-listát kezel
+
+- egy parancsgeneráló, amely kiszámolja, hogy adott pozícióba milyen parancsokkal lehet hozni egy elemet
+
+- kell egy osztály, ami kezeli a státusz üzeneteket
+
+- és kell egy osztály, ami kiszámolja, hogy mi az optimális pozíciója az aktuális elemnek
+    - ez a lényeg! Ide kell egy algoritmus
+
