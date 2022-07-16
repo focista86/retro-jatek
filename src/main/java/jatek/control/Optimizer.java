@@ -2,7 +2,6 @@ package jatek.control;
 
 import jatek.constant.TetrisElement;
 import jatek.constant.TrackElement;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,30 +17,85 @@ public class Optimizer {
     TetrisElement current;
     static final String ROTATE_LEFT = "ROTATE_LEFT";
     static final String ROTATE_RIGHT = "ROTATE_RIGHT";
+    static final String MOVE_LEFT = "MOVE_LEFT";
+    static final String MOVE_RIGHT = "MOVE_RIGHT";
 
 
     /**
-     * @param track A pálya
-     * @param current az elem amiről dönteni kell
-     * @return A current helyezéséhet szükséges lépések listája
+     * Az alapmegoldás
+     *
+     * @param track       A pálya
+     * @param current     az elem amiről dönteni kell
+     * @param itemCounter megmondja, hogy hányadik elemként jött a játék kezdete óta
+     * @return A current helyezéséhez szükséges lépések listája
+     * @return
      */
-    public List<String> getMostBasicSolution(TrackElement[][] track, TetrisElement current){
+    public List<String> getBasicSolution(TrackElement[][] track, TetrisElement current, int itemCounter) {
         List<String> solution = new ArrayList<>();
+
         String rotate = rotateToBaseLine(current);
-        solution.add(rotate!= null ? rotate : null);
+        solution.add(rotate != null ? rotate : null);
+        List<String> moves = moveToSides(track, itemCounter);
+        solution.addAll(moves);
         return solution;
     }
 
-    private String rotateToBaseLine(TetrisElement current){
-        if(current.equals(TetrisElement.SQUARE)) {
+
+    /**
+     * A legalapabb megoldás
+     *
+     * @param track   A pálya
+     * @param current az elem amiről dönteni kell
+     * @return A current helyezéséhet szükséges lépések listája
+     */
+    public List<String> getMostBasicSolution(TrackElement[][] track, TetrisElement current) {
+        List<String> solution = new ArrayList<>();
+        String rotate = rotateToBaseLine(current);
+        solution.add(rotate != null ? rotate : null);
+        return solution;
+    }
+
+    /**
+     * faék megoldás: a hogy merre kell forgatni, hogy a megnagyobb egyenes oldala legyen lefelé
+     *
+     * @param current a szóbanforgó elem
+     * @return a szükséges forgatás iránya
+     */
+    private String rotateToBaseLine(TetrisElement current) {
+        if (current.equals(TetrisElement.SQUARE)) {
             //nincs itt semmi dolgunk, gyújts rá egy jó történetre!
             return null;
-        }else if(current.equals(TetrisElement.RIGHT_L) || current.equals(TetrisElement.RIGHT_PYRAMID)){
+        } else if (current.equals(TetrisElement.RIGHT_L) || current.equals(TetrisElement.RIGHT_PYRAMID)) {
             return ROTATE_LEFT;
         } else { // az össze többi: LEFT_L, LEFT_PYRAMID, STRAIGHT
             return ROTATE_RIGHT;
         }
+    }
 
+
+    /**
+     * faék megoldás: hármas iterációban balszélre mozgatja,
+     * középen hagyja vagy jobbszélre mozgatja az elemet
+     *
+     * @param track       a pálya
+     * @param itemCounter hányadik elem ez a játék folyamán
+     * @return a lépések sorozata ahhoz, hogy jó helyre kerüljön az elem
+     */
+    private List<String> moveToSides(TrackElement[][] track, int itemCounter) {
+        List<String> returnList = new ArrayList<>();
+        int neededSteps = track[0].length / 2;
+        if (itemCounter / 3 == 0) {
+            for (int i = 0; i < neededSteps; i++) {
+                returnList.add(MOVE_LEFT);
+            }
+        } else if (itemCounter / 3 == 1) {
+            //középen marad, nem megy sehová, mindenki vidám
+        } else if (itemCounter / 3 == 2) {
+            for (int i = 0; i < neededSteps; i++) {
+                returnList.add(MOVE_RIGHT);
+            }
+        }
+        return returnList;
     }
 
 //    public void getOptimalDrop(TrackElement[][] track, TetrisElement current) {
