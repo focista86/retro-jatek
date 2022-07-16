@@ -1,6 +1,6 @@
 package jatek.model;
 
-import org.bexterlab.tetrisbackend.core.maintenance.TetrisElement;
+import jatek.constant.TetrisElement;
 
 
 public class TetrisElements {
