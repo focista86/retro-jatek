@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class Control {
 
-    public static void startGame(){
+    public static void startGame(String username){
         System.out.println("startGame");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -17,7 +17,7 @@ public class Control {
 
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request =
-                new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
+                new HttpEntity<String>("{\"username\": \"" + username + "\"}", headers);
         String personResultAsJsonStr =
                 restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/startGame", request, String.class);
 

@@ -17,12 +17,19 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @ClientEndpoint
 public class WebsocketClientEndpoint {
     public Session session;
-    public WebsocketClientEndpoint(URI endpointURI) {
+    private Logger logger;
+    private MessageHandler messageHandler;
+
+    public WebsocketClientEndpoint(URI endpointURI, Logger logger, MessageHandler messageHandler) {
+        this.logger = logger;
+        this.messageHandler = messageHandler;
         connectToServer(endpointURI);
     }
 
@@ -63,7 +70,8 @@ public class WebsocketClientEndpoint {
 
     @OnMessage
     public void processMessage(String message) {
-        System.out.println("Received message in client: " + message);
+        logger.log(Level.INFO,"Received message in client: " + message);
+        messageHandler.handleMessage(message);
     }
 
     @OnMessage
@@ -71,35 +79,4 @@ public class WebsocketClientEndpoint {
         System.out.println("Handle byte buffer" + bytes.toString());
     }
 
-//    public void handleMessage(String message) {
-//        try {
-//            List<GameToSocketTextMapper.TrackDto> trackDtoList =
-//                    objectMapper.readValue(message, new TypeReference<>() {
-//                    });
-//            trackDtoList.forEach(x -> logTrackForDebug(x.getTrack()));
-//        } catch (Exception e) {
-//            logger.error("handleFrame", e);
-//        }
-//    }
-//
-//    private void logTrackForDebug(GameToSocketTextMapper.TrackElementDto[][] track) {
-//        StringBuilder finalText = new StringBuilder();
-//        for (GameToSocketTextMapper.TrackElementDto[] row : track) {
-//            finalText.append("|\n");
-//            for (GameToSocketTextMapper.TrackElementDto column : row) {
-//                switch (column) {
-//                    case EMPTY:
-//                        finalText.append(" ");
-//                        break;
-//                    case POINT:
-//                        finalText.append("P");
-//                        break;
-//                    case ELEMENT:
-//                        finalText.append("E");
-//                        break;
-//                }
-//            }
-//        }
-//        logger.info(finalText.toString());
-//    }
 }
