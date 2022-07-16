@@ -1,6 +1,8 @@
 package jatek;
 
 
+import jatek.contor.Control;
+
 import java.net.URI;
 
 import static java.lang.Thread.sleep;
@@ -10,7 +12,7 @@ public class Main {
 
     public static void main(String[] args)  {
         System.out.println("Hajrá MacskaMarcik!");
-
+//        Control.startGame();
         try{
             final WebsocketClientEndpoint clientEndPoint = new WebsocketClientEndpoint(new URI("wss://tetris-backend-websocket.platform-dev.idomsoft.hu/tetris"));
 //            clientEndPoint.add(new WebsocketClientEndpoint.MessageHandler() {
