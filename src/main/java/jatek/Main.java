@@ -1,7 +1,7 @@
 package jatek;
 
 
-import jatek.contor.Control;
+import jatek.control.Control;
 import jatek.model.TetrisMessageHandler;
 
 import java.io.BufferedReader;

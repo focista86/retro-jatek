@@ -1,4 +1,4 @@
-package jatek.contor;
+package jatek.control;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestInterceptor;
@@ -29,6 +29,7 @@ import java.security.cert.X509Certificate;
 
 public class Control {
 
+    private static RestTemplate restTemplate;
     private final int TIMEOUT = 20000;
     private static String token;
     private final static String userName = "macskaMarcik";
@@ -40,7 +41,7 @@ public class Control {
         JSONObject gamer = new JSONObject();
         gamer.put("username", "macskakMacskaja");
 
-        RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
+        restTemplate = new RestTemplate(getClientHttpRequestFactory());
         HttpEntity<String> request =
                 new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
         token =
@@ -56,15 +57,47 @@ public class Control {
         headers.set("x-username", userName);
         headers.set("x-token", token);
 
-        RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
         HttpEntity<String> request =
                 new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
         System.out.println("MOVE LEFT: " +
                 restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/control?movement=MOVE_LEFT", request, String.class));
     }
-    public static void moveRight(){}
-    public static void rotetLeft(){}
-    public static void rotetRight(){}
+    public static void moveRight(){
+        System.out.println("moveRight");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-username", userName);
+        headers.set("x-token", token);
+
+        HttpEntity<String> request =
+                new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
+        System.out.println("MOVE RIGHT: " +
+                restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/control?movement=MOVE_RIGHT", request, String.class));
+    }
+    public static void rotateLeft(){
+        System.out.println("rotateLeft");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-username", userName);
+        headers.set("x-token", token);
+
+        HttpEntity<String> request =
+                new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
+        System.out.println("ROTATE LEFT: " +
+                restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/control?movement=ROTATE_LEFT", request, String.class));
+    }
+    public static void rotateRight(){
+        System.out.println("rotateRight");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-username", userName);
+        headers.set("x-token", token);
+
+        HttpEntity<String> request =
+                new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
+        System.out.println("ROTATE RIGHT: " +
+                restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/control?movement=ROTATE_RIGHT", request, String.class));
+    }
 
     private static ClientHttpRequestFactory getClientHttpRequestFactory() {
         HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();

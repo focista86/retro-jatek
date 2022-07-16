@@ -1,16 +1,4 @@
-package jatek.contor;
-
-import jatek.constant.TetrisElement;
-import jatek.constant.TrackElement;
-import jatek.model.TetrisElements;
-import jatek.rotate.LeftRotator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
-import org.springframework.util.Assert;
-
-import javax.validation.constraints.AssertTrue;
-import java.util.ArrayList;
-import java.util.List;
+package jatek.control;
 
 /*
 Ez az algoritmus, ami a megkapott pálya és követzkező alakzat alapján belövi, hogy mi lenne a jó lépés
