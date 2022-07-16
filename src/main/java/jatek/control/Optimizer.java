@@ -1,5 +1,6 @@
 package jatek.control;
 
+import jatek.constant.Movement;
 import jatek.constant.TetrisElement;
 import jatek.constant.TrackElement;
 
@@ -13,14 +14,6 @@ Az egészet kb innen vettem: https://medium.com/python-pandemonium/building-a-te
 public class Optimizer {
 
 
-    TrackElement[][] track;
-    TetrisElement current;
-    static final String ROTATE_LEFT = "ROTATE_LEFT";
-    static final String ROTATE_RIGHT = "ROTATE_RIGHT";
-    static final String MOVE_LEFT = "MOVE_LEFT";
-    static final String MOVE_RIGHT = "MOVE_RIGHT";
-
-
     /**
      * Az alapmegoldás
      *
@@ -28,14 +21,13 @@ public class Optimizer {
      * @param current     az elem amiről dönteni kell
      * @param itemCounter megmondja, hogy hányadik elemként jött a játék kezdete óta
      * @return A current helyezéséhez szükséges lépések listája
-     * @return
      */
-    public List<String> getBasicSolution(TrackElement[][] track, TetrisElement current, int itemCounter) {
-        List<String> solution = new ArrayList<>();
+    public List<Movement> getBasicSolution(TrackElement[][] track, TetrisElement current, int itemCounter) {
+        List<Movement> solution = new ArrayList<>();
 
-        String rotate = rotateToBaseLine(current);
+        Movement rotate = rotateToBaseLine(current);
         solution.add(rotate != null ? rotate : null);
-        List<String> moves = moveToSides(track, itemCounter);
+        List<Movement> moves = moveToSides(track, itemCounter);
         solution.addAll(moves);
         return solution;
     }
@@ -48,9 +40,9 @@ public class Optimizer {
      * @param current az elem amiről dönteni kell
      * @return A current helyezéséhet szükséges lépések listája
      */
-    public List<String> getMostBasicSolution(TrackElement[][] track, TetrisElement current) {
-        List<String> solution = new ArrayList<>();
-        String rotate = rotateToBaseLine(current);
+    public List<Movement> getMostBasicSolution(TrackElement[][] track, TetrisElement current) {
+        List<Movement> solution = new ArrayList<>();
+        Movement rotate = rotateToBaseLine(current);
         solution.add(rotate != null ? rotate : null);
         return solution;
     }
@@ -61,14 +53,14 @@ public class Optimizer {
      * @param current a szóbanforgó elem
      * @return a szükséges forgatás iránya
      */
-    private String rotateToBaseLine(TetrisElement current) {
+    private Movement rotateToBaseLine(TetrisElement current) {
         if (current.equals(TetrisElement.SQUARE)) {
             //nincs itt semmi dolgunk, gyújts rá egy jó történetre!
             return null;
         } else if (current.equals(TetrisElement.RIGHT_L) || current.equals(TetrisElement.RIGHT_PYRAMID)) {
-            return ROTATE_LEFT;
+            return Movement.ROTATE_LEFT;
         } else { // az össze többi: LEFT_L, LEFT_PYRAMID, STRAIGHT
-            return ROTATE_RIGHT;
+            return Movement.ROTATE_RIGHT;
         }
     }
 
@@ -81,18 +73,18 @@ public class Optimizer {
      * @param itemCounter hányadik elem ez a játék folyamán
      * @return a lépések sorozata ahhoz, hogy jó helyre kerüljön az elem
      */
-    private List<String> moveToSides(TrackElement[][] track, int itemCounter) {
-        List<String> returnList = new ArrayList<>();
+    private List<Movement> moveToSides(TrackElement[][] track, int itemCounter) {
+        List<Movement> returnList = new ArrayList<>();
         int neededSteps = track[0].length / 2;
         if (itemCounter / 3 == 0) {
             for (int i = 0; i < neededSteps; i++) {
-                returnList.add(MOVE_LEFT);
+                returnList.add(Movement.MOVE_LEFT);
             }
         } else if (itemCounter / 3 == 1) {
             //középen marad, nem megy sehová, mindenki vidám
         } else if (itemCounter / 3 == 2) {
             for (int i = 0; i < neededSteps; i++) {
-                returnList.add(MOVE_RIGHT);
+                returnList.add(Movement.MOVE_RIGHT);
             }
         }
         return returnList;
