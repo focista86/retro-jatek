@@ -2,14 +2,14 @@
 
 - kell egy game osztály, ami elindít egy játékot, megjegyzi a tokent
 
-- aktuális elemet vezérlő osztály
+- aktuális elemet vezérlő osztály - SM?
     - moveLeft, moveRight, rotateLeft, rotateRight
     - kell egy metódus, ami parancs-listát kezel
 
-- egy parancsgeneráló, amely kiszámolja, hogy adott pozícióba milyen parancsokkal lehet hozni egy elemet
+- egy parancsgeneráló, amely kiszámolja, hogy adott pozícióba milyen parancsokkal lehet hozni egy elemet - mob
 
-- kell egy osztály, ami kezeli a státusz üzeneteket
+- kell egy osztály, ami kezeli a státusz üzeneteket - M
 
-- és kell egy osztály, ami kiszámolja, hogy mi az optimális pozíciója az aktuális elemnek
+- és kell egy osztály, ami kiszámolja, hogy mi az optimális pozíciója az aktuális elemnek - BM
     - ez a lényeg! Ide kell egy algoritmus
 
