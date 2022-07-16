@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-//import hu.idom.mserver3.util.Loggers;
+import hu.idom.mserver3.util.Loggers;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -32,7 +32,7 @@ public class HunDateDeserializer extends JsonDeserializer<Date> {
             try {
                 return parse(s);
             } catch (DateTimeParseException ex) {
-              //  Loggers.logWarning(this, "jackson parse hiba", ex);
+                Loggers.logWarning(this, "jackson parse hiba", ex);
                 throw ex;
             }
         }
@@ -45,7 +45,7 @@ public class HunDateDeserializer extends JsonDeserializer<Date> {
         } else if (s.length() == 20) {
             LocalDateTime dateTime = LocalDateTime.parse(s, FORMATTER_HUN_DATETIME);
             Date date = Date.from(dateTime.atZone(ZONE_HUN).toInstant());
-            //Loggers.logDebug(this, "" + s + " --> " + date);
+            Loggers.logDebug(this, "" + s + " --> " + date);
             return date;
         } else if (s.length() == 11) {
             LocalDate localDate = LocalDate.parse(s, FORMATTER_HUN_DATE_11);

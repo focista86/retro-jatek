@@ -2,7 +2,7 @@ package jatek;
 
 
 import jatek.control.Control;
-import jatek.TetrisMessageHandler;
+import jatek.model.TetrisMessageHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
