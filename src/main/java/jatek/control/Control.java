@@ -1,5 +1,6 @@
 package jatek.control;
 
+import jatek.constant.Movement;
 import jatek.model.Game;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestInterceptor;
@@ -27,6 +28,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -63,6 +65,25 @@ public class Control {
                     e);
         }
         return game;
+    }
+
+    public void doMovmentList(List<Movement> movementList){
+        for (Movement movement: movementList) {
+            doMovement(movement);
+        }
+    }
+
+    public void doMovement(Movement movement) {
+        System.out.println("movement");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-username", game.user.getUsername());
+        headers.set("x-token", game.user.getToken());
+
+        HttpEntity<String> request =
+                new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
+        System.out.println("MOVEMENT: " +
+                restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/control?movement="+ movement.toString(), request, String.class));
     }
 
     public void moveLeft() {

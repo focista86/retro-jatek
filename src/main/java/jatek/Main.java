@@ -2,6 +2,7 @@ package jatek;
 
 
 import jatek.control.Control;
+import jatek.control.Optimizer;
 import jatek.model.Game;
 
 import java.io.BufferedReader;
@@ -26,25 +27,25 @@ public class Main {
         System.out.println("Hajrá MacskaMarcik!");
         try{
             startLogger();
-            messageHandler = new TetrisMessageHandler(logger);
-            clientEndPoint = new WebsocketClientEndpoint(new URI("wss://tetris-backend-websocket.platform-dev.idomsoft.hu/api/tetris"), logger, messageHandler);
             control = new Control(logger);
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(System.in));
-            String command;
-
+            game = control.startGame("macskaMarcik");
+            messageHandler = new TetrisMessageHandler(logger, control);
+            messageHandler.setActGame(game);
+            clientEndPoint = new WebsocketClientEndpoint(new URI("wss://tetris-backend-websocket.platform-dev.idomsoft.hu/api/tetris"), logger, messageHandler);
+            for (;;){}
+//            BufferedReader reader = new BufferedReader(
+//                    new InputStreamReader(System.in));
+//            String command;
             // Reading data using readLine
-             do {
-                sleep(1000);
-                 System.out.println("Indítsak?");
-                command = reader.readLine();
-                if (!command.equals("quit") && !command.isEmpty()) {
-                    logger.log(Level.INFO, "Új játékot indítunk " + command + "néven");
-                    game = control.startGame(command);
-                    messageHandler.setActGame(game);
-                }
-                System.out.println("ciklus belseje: " + clientEndPoint.session.getMessageHandlers().stream().count());
-            } while (command != "quit");
+//             do {
+//                sleep(1000);
+//                 System.out.println("Indítsak?");
+//                command = reader.readLine();
+//                if (!command.equals("quit") && !command.isEmpty()) {
+//                    logger.log(Level.INFO, "Új játékot indítunk " + command + "néven");
+//                }
+//                System.out.println("ciklus belseje: " + clientEndPoint.session.getMessageHandlers().stream().count());
+//            } while (command != "quit");
         } catch(Exception e){System.out.println(e);}
     }
 

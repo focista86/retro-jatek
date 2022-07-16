@@ -1,5 +1,6 @@
 package jatek;
 
+import jatek.control.Control;
 import jatek.model.Game;
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class TetrisMessageHandlerTest {
         game.user.setUsername("ThreeTitansRancher");
         Logger logger = Logger.getLogger("teszt");
         logger.addHandler(new ConsoleHandler());
-        TetrisMessageHandler mh = new TetrisMessageHandler(logger);
+        TetrisMessageHandler mh = new TetrisMessageHandler(logger, new Control(logger));
         mh.setActGame(game);
         mh.handleMessage(m);
         assertEquals(1, game.messageQueue.size());
