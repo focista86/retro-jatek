@@ -19,8 +19,11 @@ public class Optimizer {
     static final String ROTATE_LEFT = "ROTATE_LEFT";
     static final String ROTATE_RIGHT = "ROTATE_RIGHT";
 
-    public void getMostBasicSolution(TrackElement[][] track, TetrisElement current){
-        rotateToBaseLine(current);
+    public List<String> getMostBasicSolution(TrackElement[][] track, TetrisElement current){
+        List<String> solution = new ArrayList<>();
+        String rotate = rotateToBaseLine(current);
+        solution.add(rotate!= null ? rotate : null);
+        return solution;
     }
 
     private String rotateToBaseLine(TetrisElement current){
