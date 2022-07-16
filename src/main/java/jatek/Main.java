@@ -1,8 +1,6 @@
 package jatek;
 
 
-import jatek.contor.Control;
-
 import java.net.URI;
 
 import static java.lang.Thread.sleep;
