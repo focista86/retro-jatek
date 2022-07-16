@@ -1,38 +1,31 @@
 package jatek;
 
-
 import jatek.control.Control;
-import jatek.control.Optimizer;
 import jatek.model.Game;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.*;
 
-import static java.lang.Thread.sleep;
-
 public class Main {
 
     public static Logger logger;
     public static WebsocketClientEndpoint clientEndPoint;
-    public static MessageHandler messageHandler ;
     private static Control control;
-    private static Game game;
 
     public static void main(String[] args)  {
         System.out.println("Hajrá MacskaMarcik!");
         try{
             startLogger();
-            control = new Control(logger);
-            game = control.startGame("macskaMarcik");
-            messageHandler = new TetrisMessageHandler(logger, control);
-            messageHandler.setActGame(game);
-            clientEndPoint = new WebsocketClientEndpoint(new URI("wss://tetris-backend-websocket.platform-dev.idomsoft.hu/api/tetris"), logger, messageHandler);
-            for (;;){}
+            Game game = new Game("macskaMarcik");
+
+            control = new Control(logger, game);
+
+            clientEndPoint = new WebsocketClientEndpoint(new URI("wss://tetris-backend-websocket.platform-dev.idomsoft.hu/api/tetris"),
+                    logger, new TetrisMessageHandler(logger, control, game));
+//            for (;;){}
 //            BufferedReader reader = new BufferedReader(
 //                    new InputStreamReader(System.in));
 //            String command;

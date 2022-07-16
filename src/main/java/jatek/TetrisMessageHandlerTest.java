@@ -14,12 +14,10 @@ public class TetrisMessageHandlerTest {
 
     @Test
     public void handleMessage() {
-        Game game = new Game();
-        game.user.setUsername("ThreeTitansRancher");
+        Game game = new Game("ThreeTitansRancher");
         Logger logger = Logger.getLogger("teszt");
         logger.addHandler(new ConsoleHandler());
-        TetrisMessageHandler mh = new TetrisMessageHandler(logger, new Control(logger));
-        mh.setActGame(game);
+        TetrisMessageHandler mh = new TetrisMessageHandler(logger, new Control(logger, game), game);
         mh.handleMessage(m);
         assertEquals(1, game.messageQueue.size());
     }

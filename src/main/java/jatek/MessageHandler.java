@@ -1,9 +1,7 @@
 package jatek;
 
-import jatek.model.Game;
+import exception.GameOverException;
 
 public interface MessageHandler {
-    void handleMessage(String message);
-
-    void setActGame(Game game);
+    void handleMessage(String message) throws GameOverException;
 }

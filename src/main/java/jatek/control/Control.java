@@ -15,14 +15,12 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.ssl.SSLContextBuilder;
-import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.ws.transport.http.HttpComponentsMessageSender;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -37,15 +35,17 @@ public class Control {
     private static RestTemplate restTemplate;
     private final int TIMEOUT = 20000;
 
-    public Control(Logger logger) {
+    public Control(Logger logger, Game game) {
         this.logger = logger;
+        this.game = game;
+        startGame();
     }
 
     private String token;
     private Logger logger;
     private Game game;
 
-    public Game startGame(String username) {
+    public void startGame() {
         System.out.println("startGame");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -53,18 +53,15 @@ public class Control {
         restTemplate = new RestTemplate(getClientHttpRequestFactory());
         try {
             HttpEntity<String> request =
-                    new HttpEntity<String>("{\"username\": \"" + username + "\"}", headers);
-            game = new Game();
-            game.user.setUsername(username);
+                    new HttpEntity<String>("{\"username\": \"" + game.user.getUsername() + "\"}", headers);
             token = restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/startGame", request, String.class);
 
             game.user.setToken(token);
         } catch (Exception e) {
             logger.log(Level.WARNING,
-                    "nem sikerült elindítani az új játékot " + username + "néven",
+                    "nem sikerült elindítani az új játékot " + game.user.getUsername() + "néven",
                     e);
         }
-        return game;
     }
 
     public void doMovmentList(List<Movement> movementList){
@@ -74,7 +71,7 @@ public class Control {
     }
 
     public void doMovement(Movement movement) {
-        System.out.println("movement");
+        System.out.println("movement: " + movement);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("x-username", game.user.getUsername());

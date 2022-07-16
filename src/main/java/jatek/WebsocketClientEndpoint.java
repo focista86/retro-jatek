@@ -17,12 +17,14 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 @ClientEndpoint
 public class WebsocketClientEndpoint {
+    private final CountDownLatch latch;
     public Session session;
     private Logger logger;
     private MessageHandler messageHandler;
@@ -30,6 +32,7 @@ public class WebsocketClientEndpoint {
     public WebsocketClientEndpoint(URI endpointURI, Logger logger, MessageHandler messageHandler) {
         this.logger = logger;
         this.messageHandler = messageHandler;
+        this.latch = new CountDownLatch(1);
         connectToServer(endpointURI);
     }
 
@@ -37,11 +40,13 @@ public class WebsocketClientEndpoint {
         try {
             WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 
-
             session = container.connectToServer(new PojoEndpointClient(this, new ArrayList<>()), createClientConfig(), endpointURI);
+            latch.await();
         } catch (IOException | DeploymentException | NoSuchAlgorithmException | KeyStoreException |
-                 KeyManagementException | UnrecoverableKeyException | CertificateException e) {
+                KeyManagementException | UnrecoverableKeyException | CertificateException e) {
             throw new AssertionError(e);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -50,7 +55,7 @@ public class WebsocketClientEndpoint {
         ClientEndpointConfig.Builder builder = ClientEndpointConfig.Builder.create();
         ClientEndpointConfig config = builder.decoders(new ArrayList<>()).encoders(new ArrayList<>())
                 .preferredSubprotocols(new ArrayList<>()).build();
-        SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null,  new TrustStrategy() {
+        SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
             public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
                 return true;
             }
@@ -58,6 +63,7 @@ public class WebsocketClientEndpoint {
         config.getUserProperties().put(Constants.SSL_CONTEXT_PROPERTY, sslContext);
         return config;
     }
+
     @OnOpen
     public void onOpen(Session userSession) {
         System.out.println("opening websocket" + userSession);
@@ -70,7 +76,7 @@ public class WebsocketClientEndpoint {
 
     @OnMessage
     public void processMessage(String message) {
-        logger.log(Level.INFO,"Received message in client: " + message);
+        logger.log(Level.INFO, "Received message in client: " + message);
         messageHandler.handleMessage(message);
     }
 
