@@ -12,4 +12,5 @@
 
 - és kell egy osztály, ami kiszámolja, hogy mi az optimális pozíciója az aktuális elemnek - BM
     - ez a lényeg! Ide kell egy algoritmus
-
+    * emlékezni, hogy nincs üres parancs, forgatással vagy jobbra-balra-val kitölteni a leérkezésig az időt
+    *
