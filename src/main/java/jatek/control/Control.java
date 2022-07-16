@@ -1,5 +1,6 @@
 package jatek.control;
 
+import jatek.model.Game;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.client.HttpClient;
@@ -26,72 +27,89 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Control {
 
     private static RestTemplate restTemplate;
     private final int TIMEOUT = 20000;
-    private static String token;
-    private final static String userName = "macskaMarcik";
 
-    public static void startGame(String username) {
+    public Control(Logger logger) {
+        this.logger = logger;
+    }
+
+    private String token;
+    private Logger logger;
+    private Game game;
+
+    public Game startGame(String username) {
         System.out.println("startGame");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        JSONObject gamer = new JSONObject();
-        gamer.put("username", "macskakMacskaja");
 
         restTemplate = new RestTemplate(getClientHttpRequestFactory());
-        HttpEntity<String> request =
-                new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
-        token =
-                restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/startGame", request, String.class);
+        try {
+            HttpEntity<String> request =
+                    new HttpEntity<String>("{\"username\": \"" + username + "\"}", headers);
+            game = new Game();
+            game.user.setUsername(username);
+            token = restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/startGame", request, String.class);
 
-        System.out.println("TOKEN: " + token);
+            game.user.setToken(token);
+        } catch (Exception e) {
+            logger.log(Level.WARNING,
+                    "nem sikerült elindítani az új játékot " + username + "néven",
+                    e);
+        }
+        return game;
     }
 
-    public static void moveLeft(){
+    public void moveLeft() {
         System.out.println("moveLeft");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("x-username", userName);
-        headers.set("x-token", token);
+        headers.set("x-username", game.user.getUsername());
+        headers.set("x-token", game.user.getToken());
 
         HttpEntity<String> request =
                 new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
         System.out.println("MOVE LEFT: " +
                 restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/control?movement=MOVE_LEFT", request, String.class));
     }
-    public static void moveRight(){
+
+    public void moveRight() {
         System.out.println("moveRight");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("x-username", userName);
-        headers.set("x-token", token);
+        headers.set("x-username", game.user.getUsername());
+        headers.set("x-token", game.user.getToken());
 
         HttpEntity<String> request =
                 new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
         System.out.println("MOVE RIGHT: " +
                 restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/control?movement=MOVE_RIGHT", request, String.class));
     }
-    public static void rotateLeft(){
+
+    public void rotateLeft() {
         System.out.println("rotateLeft");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("x-username", userName);
-        headers.set("x-token", token);
+        headers.set("x-username", game.user.getUsername());
+        headers.set("x-token", game.user.getToken());
 
         HttpEntity<String> request =
                 new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
         System.out.println("ROTATE LEFT: " +
                 restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/control?movement=ROTATE_LEFT", request, String.class));
     }
-    public static void rotateRight(){
+
+    public  void rotateRight() {
         System.out.println("rotateRight");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("x-username", userName);
-        headers.set("x-token", token);
+        headers.set("x-username", game.user.getUsername());
+        headers.set("x-token", game.user.getToken());
 
         HttpEntity<String> request =
                 new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
@@ -99,7 +117,7 @@ public class Control {
                 restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/control?movement=ROTATE_RIGHT", request, String.class));
     }
 
-    private static ClientHttpRequestFactory getClientHttpRequestFactory() {
+    private ClientHttpRequestFactory getClientHttpRequestFactory() {
         HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
         clientHttpRequestFactory.setConnectTimeout(20000);
         try {
@@ -110,10 +128,11 @@ public class Control {
         return clientHttpRequestFactory;
     }
 
-    private static HttpClient createHttpClient_AcceptsUntrustedCerts() throws Exception {
+    private HttpClient createHttpClient_AcceptsUntrustedCerts() throws Exception {
         HttpClientBuilder b = HttpClientBuilder.create();
 
-        b.addInterceptorFirst(new HttpComponentsMessageSender.RemoveSoapHeadersInterceptor());
+// SM, ezt nem tudom micsoda és ezért nem tudom feloldani
+//        b.addInterceptorFirst(new HttpComponentsMessageSender.RemoveSoapHeadersInterceptor());
 
         b.addInterceptorLast(new HttpRequestInterceptor() {
             @Override
@@ -154,5 +173,10 @@ public class Control {
         //      -- done!
         HttpClient client = b.build();
         return client;
+    }
+
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 }

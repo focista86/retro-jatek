@@ -4,7 +4,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import hu.idom.mserver3.util.Loggers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -14,11 +15,17 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author szarvas
  */
+
+@Component
 public class HunDateDeserializer extends JsonDeserializer<Date> {
+    @Autowired
+    private Logger logger;
 
     private static final DateTimeFormatter FORMATTER_HUN_DATETIME = DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm:ss");
     private static final DateTimeFormatter FORMATTER_HUN_DATE_11 = DateTimeFormatter.ofPattern("yyyy.MM.dd.");
@@ -32,7 +39,7 @@ public class HunDateDeserializer extends JsonDeserializer<Date> {
             try {
                 return parse(s);
             } catch (DateTimeParseException ex) {
-                Loggers.logWarning(this, "jackson parse hiba", ex);
+                logger.log(Level.WARNING, "jackson parse hiba", ex);
                 throw ex;
             }
         }
@@ -45,7 +52,7 @@ public class HunDateDeserializer extends JsonDeserializer<Date> {
         } else if (s.length() == 20) {
             LocalDateTime dateTime = LocalDateTime.parse(s, FORMATTER_HUN_DATETIME);
             Date date = Date.from(dateTime.atZone(ZONE_HUN).toInstant());
-            Loggers.logDebug(this, "" + s + " --> " + date);
+            logger.log(Level.FINE, "" + s + " --> " + date);
             return date;
         } else if (s.length() == 11) {
             LocalDate localDate = LocalDate.parse(s, FORMATTER_HUN_DATE_11);

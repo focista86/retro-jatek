@@ -24,6 +24,17 @@ public enum TrackElement {
             return EMPTY;
         }
     },
+    ELEMENT(0, 0, 0, 0, false) {
+        @Override
+        public TrackElement getLeftNewType() {
+            return EMPTY;
+        }
+
+        @Override
+        public TrackElement getRightNewType() {
+            return EMPTY;
+        }
+    },
     SQUARE_POINT(0, 0, 0, 0, true) {
         @Override
         public TrackElement getLeftNewType() {
