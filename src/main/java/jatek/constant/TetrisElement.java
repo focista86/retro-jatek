@@ -35,7 +35,7 @@ public enum TetrisElement {
     //**
     // *
     // *
-    LEFT_L(Arrays.asList(3, 2, 1, 1), Arrays.asList(1,1,2,3), Arrays.asList(-1,-1,0,-1)) {
+    LEFT_L(Arrays.asList(3, 2, 1, 1), Arrays.asList(1,1,2,3), Arrays.asList(0,-1,0,-1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -63,7 +63,7 @@ public enum TetrisElement {
     // *
     //**
     // *
-    , LEFT_PYRAMID(Arrays.asList(3, 1, 1, 1), Arrays.asList(1,1,1,3), Arrays.asList(-1,-1,0,-1)) {
+    , LEFT_PYRAMID(Arrays.asList(3, 1, 1, 1), Arrays.asList(1,1,1,3), Arrays.asList(0,-1,0,-1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
