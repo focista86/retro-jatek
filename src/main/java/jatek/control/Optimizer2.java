@@ -25,6 +25,9 @@ public class Optimizer2 {
             for (EmptySpace emptySpace : emptySpaceList) {
                 if (elHossza == emptySpace.length){
                     solution = calculateMovements(current, elHossza, emptySpace.startPosition, tableLength);
+                    System.out.println("Optimizer szerint");
+                    System.out.println(solution);
+                    return solution;
 //                    megfelelő él hosszra forgat
 //                    a baloldalát a emptySpace.startPositionra mozgatni
                 }
@@ -32,6 +35,9 @@ public class Optimizer2 {
             for (EmptySpace emptySpace : emptySpaceList) {
                 if (elHossza < emptySpace.length){
                     solution = calculateMovements(current, elHossza, emptySpace.startPosition, tableLength);
+                    System.out.println("Optimizer szerint");
+                    System.out.println(solution);
+                    return solution;
 //                    megfelelő él hosszra forgat
 //                    a baloldalát a emptySpace.startPositionra mozgatni
                 }
@@ -52,6 +58,9 @@ public class Optimizer2 {
                 break;
             }
         }
+        System.out.println("Calculator szerint");
+        System.out.println(movementList);
+
         return movementList;
     }
 
@@ -59,8 +68,12 @@ public class Optimizer2 {
         if (i <= 0) {
             return;
         }
-        for (int j = 0; j < i; j++) {
-            movementList.add(movement);
+        if (movement == ROTATE_LEFT && i == 3) {
+            movementList.add(ROTATE_RIGHT);
+        } else {
+            for (int j = 0; j < i; j++) {
+                movementList.add(movement);
+            }
         }
     }
 

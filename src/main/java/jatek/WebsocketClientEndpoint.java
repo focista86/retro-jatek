@@ -76,7 +76,7 @@ public class WebsocketClientEndpoint {
 
     @OnMessage
     public void processMessage(String message) {
-        logger.log(Level.INFO, "Received message in client: " + message);
+        //logger.log(Level.INFO, "Received message in client: " + message);
         messageHandler.handleMessage(message);
     }
 

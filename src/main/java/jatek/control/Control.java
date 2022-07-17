@@ -151,6 +151,10 @@ public class Control {
     }
 
     private HttpClient createHttpClient_AcceptsUntrustedCerts() throws Exception {
+        Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.WARNING);
+        Logger.getLogger("httpclient.wire.header").setLevel(Level.WARNING);
+        Logger.getLogger("httpclient.wire.content").setLevel(Level.WARNING);
+
         HttpClientBuilder b = HttpClientBuilder.create();
 
 // SM, ezt nem tudom micsoda és ezért nem tudom feloldani
