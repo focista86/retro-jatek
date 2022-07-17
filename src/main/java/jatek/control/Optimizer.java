@@ -81,6 +81,11 @@ public class Optimizer {
                 returnList.add(Movement.MOVE_LEFT);
             }
         } else if (itemCounter % 3 == 1) {
+            if (itemCounter % 2 == 0) {
+                returnList.add(Movement.MOVE_RIGHT);
+            } else {
+                returnList.add(Movement.MOVE_LEFT);
+            }
             //középen marad, nem megy sehová, mindenki vidám
         } else if (itemCounter % 3 == 2) {
             for (int i = 0; i < neededSteps; i++) {
