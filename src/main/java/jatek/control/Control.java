@@ -65,6 +65,7 @@ public class Control {
     }
 
     public void doMovmentList(List<Movement> movementList){
+        if (movementList == null) { return;}
         for (Movement movement: movementList) {
             doMovement(movement);
         }

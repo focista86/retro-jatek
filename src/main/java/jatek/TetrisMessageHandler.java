@@ -2,6 +2,7 @@ package jatek;
 
 import jatek.control.Control;
 import jatek.control.Optimizer;
+import jatek.control.Optimizer2;
 import jatek.model.Game;
 import jatek.model.Message;
 import jatek.utl.JsonUtil;
@@ -12,7 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TetrisMessageHandler implements MessageHandler {
-    private int i;
+    private int elemCounter;
+
     private Game actGame;
     private Logger logger;
     private Control control;
@@ -21,7 +23,7 @@ public class TetrisMessageHandler implements MessageHandler {
         this.logger = logger;
         this.control = control;
         this.actGame = actGame;
-        this.i = 1;
+        this.elemCounter = 1;
     }
 
     @Override
@@ -32,11 +34,13 @@ public class TetrisMessageHandler implements MessageHandler {
         if (message.isPresent()) {
             actGame.updateGame(message.get());
             if (actGame.isNewElement) {
-                i++;
-                System.out.println("+++++++++++++++++++ " + i);
+                elemCounter++;
+                System.out.println("+++++++++++++++++++ " + elemCounter);
                 Optimizer optimizer = new Optimizer();
+                Optimizer2 optimizer2 = new Optimizer2();
                 if (actGame.tetrisElements != null) {
-                    control.doMovmentList(optimizer.getBasicSolution(actGame.track, actGame.tetrisElements.getCurrent(), i));
+                    //control.doMovmentList(optimizer.getBasicSolution(actGame.track, actGame.tetrisElements.getCurrent(), i));
+                    control.doMovmentList(optimizer2.elmebaj1(actGame.track, actGame.tetrisElements.getCurrent(), elemCounter));
                 }
             }
         } else {
