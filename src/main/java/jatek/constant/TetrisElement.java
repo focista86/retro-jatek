@@ -1,8 +1,11 @@
 package jatek.constant;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum TetrisElement {
 
-    SQUARE(2, 2, 2, 2) {
+    SQUARE(Arrays.asList(2, 2, 2, 2)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -13,7 +16,7 @@ public enum TetrisElement {
             return track;
         }
     },
-    RIGHT_L(3, 2, 1, 1) {
+    RIGHT_L(Arrays.asList(3, 2, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -24,7 +27,7 @@ public enum TetrisElement {
             return track;
         }
     },
-    RIGHT_L2(3, 2, 1, 1) {
+    RIGHT_L2(Arrays.asList(3, 2, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -35,7 +38,7 @@ public enum TetrisElement {
             return track;
         }
     },
-    RIGHT_L3(3, 2, 1, 1) {
+    RIGHT_L3(Arrays.asList(3, 2, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -46,7 +49,7 @@ public enum TetrisElement {
             return track;
         }
     },
-    RIGHT_L4(3, 2, 1, 1) {
+    RIGHT_L4(Arrays.asList(3, 2, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -57,7 +60,7 @@ public enum TetrisElement {
             return track;
         }
     },
-    LEFT_L(3, 2, 1, 1) {
+    LEFT_L(Arrays.asList(3, 2, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -67,7 +70,7 @@ public enum TetrisElement {
             track[2][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, LEFT_L2(3, 2, 1, 1) {
+    }, LEFT_L2(Arrays.asList(3, 2, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -77,7 +80,7 @@ public enum TetrisElement {
             track[1][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, LEFT_L3(3, 2, 1, 1) {
+    }, LEFT_L3(Arrays.asList(3, 2, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -87,7 +90,7 @@ public enum TetrisElement {
             track[2][startPoint + 1] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, LEFT_L4(3, 2, 1, 1) {
+    }, LEFT_L4(Arrays.asList(3, 2, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -97,7 +100,7 @@ public enum TetrisElement {
             track[1][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, RIGHT_PYRAMID(3, 1, 1, 1) {
+    }, RIGHT_PYRAMID(Arrays.asList(3, 1, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -107,7 +110,7 @@ public enum TetrisElement {
             track[2][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, LEFT_PYRAMID(3, 1, 1, 1) {
+    }, LEFT_PYRAMID(Arrays.asList(3, 1, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -117,7 +120,7 @@ public enum TetrisElement {
             track[2][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, PYRAMID(3, 1, 1, 1) {
+    }, PYRAMID(Arrays.asList(3, 1, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -127,7 +130,7 @@ public enum TetrisElement {
             track[1][startPoint + 1] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, REV_PYRAMID(3, 1, 1, 1) {
+    }, REV_PYRAMID(Arrays.asList(3, 1, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -137,7 +140,7 @@ public enum TetrisElement {
             track[1][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, STRAIGHT(3, 3, 1, 1) {
+    }, STRAIGHT(Arrays.asList(3, 3, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -147,7 +150,7 @@ public enum TetrisElement {
             return track;
         }
 
-    }, STRAIGHT2(3, 3, 1, 1) {
+    }, STRAIGHT2(Arrays.asList(3, 3, 1, 1)) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -159,14 +162,11 @@ public enum TetrisElement {
 
     };
 
-    TetrisElement(int maxel1, int maxel2, int maxel3, int maxel4) {
-        this.maxel1 = maxel1;
-        this.maxel2 = maxel2;
-        this.maxel3 = maxel3;
-        this.maxel4 = maxel4;
+    TetrisElement(List elHosszList) {
+        this.elHosszList = elHosszList;
     }
 
     public abstract TrackElement[][] spawnNew(TrackElement[][] track);
-    public final int maxel1, maxel2, maxel3, maxel4;
+    public final List<Integer> elHosszList;
 
 }
