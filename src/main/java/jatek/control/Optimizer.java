@@ -76,13 +76,13 @@ public class Optimizer {
     private List<Movement> moveToSides(TrackElement[][] track, int itemCounter) {
         List<Movement> returnList = new ArrayList<>();
         int neededSteps = track[0].length / 2;
-        if (itemCounter / 3 == 0) {
+        if (itemCounter % 3 == 0) {
             for (int i = 0; i < neededSteps; i++) {
                 returnList.add(Movement.MOVE_LEFT);
             }
-        } else if (itemCounter / 3 == 1) {
+        } else if (itemCounter % 3 == 1) {
             //középen marad, nem megy sehová, mindenki vidám
-        } else if (itemCounter / 3 == 2) {
+        } else if (itemCounter % 3 == 2) {
             for (int i = 0; i < neededSteps; i++) {
                 returnList.add(Movement.MOVE_RIGHT);
             }
