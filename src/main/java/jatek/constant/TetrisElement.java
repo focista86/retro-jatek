@@ -2,7 +2,7 @@ package jatek.constant;
 
 public enum TetrisElement {
 
-    SQUARE() {
+    SQUARE(2, 2, 2, 2) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -13,7 +13,7 @@ public enum TetrisElement {
             return track;
         }
     },
-    RIGHT_L {
+    RIGHT_L(3, 2, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -24,7 +24,7 @@ public enum TetrisElement {
             return track;
         }
     },
-    RIGHT_L2 {
+    RIGHT_L2(3, 2, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -35,7 +35,7 @@ public enum TetrisElement {
             return track;
         }
     },
-    RIGHT_L3 {
+    RIGHT_L3(3, 2, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -46,7 +46,7 @@ public enum TetrisElement {
             return track;
         }
     },
-    RIGHT_L4 {
+    RIGHT_L4(3, 2, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -57,7 +57,7 @@ public enum TetrisElement {
             return track;
         }
     },
-    LEFT_L {
+    LEFT_L(3, 2, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -67,7 +67,7 @@ public enum TetrisElement {
             track[2][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, LEFT_L2 {
+    }, LEFT_L2(3, 2, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -77,7 +77,7 @@ public enum TetrisElement {
             track[1][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, LEFT_L3 {
+    }, LEFT_L3(3, 2, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -87,7 +87,7 @@ public enum TetrisElement {
             track[2][startPoint + 1] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, LEFT_L4 {
+    }, LEFT_L4(3, 2, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -97,7 +97,7 @@ public enum TetrisElement {
             track[1][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, RIGHT_PYRAMID {
+    }, RIGHT_PYRAMID(3, 1, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -107,7 +107,7 @@ public enum TetrisElement {
             track[2][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, LEFT_PYRAMID {
+    }, LEFT_PYRAMID(3, 1, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -117,7 +117,7 @@ public enum TetrisElement {
             track[2][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, PYRAMID {
+    }, PYRAMID(3, 1, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -127,7 +127,7 @@ public enum TetrisElement {
             track[1][startPoint + 1] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, REV_PYRAMID {
+    }, REV_PYRAMID(3, 1, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2;
@@ -137,7 +137,7 @@ public enum TetrisElement {
             track[1][startPoint] = TrackElement.THREE_LONG_ELEMENT_DOWN_MIDDLE;
             return track;
         }
-    }, STRAIGHT {
+    }, STRAIGHT(3, 3, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -147,7 +147,7 @@ public enum TetrisElement {
             return track;
         }
 
-    }, STRAIGHT2 {
+    }, STRAIGHT2(3, 3, 1, 1) {
         @Override
         public TrackElement[][] spawnNew(TrackElement[][] track) {
             int startPoint = track[0].length / 2 - 1;
@@ -159,5 +159,14 @@ public enum TetrisElement {
 
     };
 
+    TetrisElement(int maxel1, int maxel2, int maxel3, int maxel4) {
+        this.maxel1 = maxel1;
+        this.maxel2 = maxel2;
+        this.maxel3 = maxel3;
+        this.maxel4 = maxel4;
+    }
+
     public abstract TrackElement[][] spawnNew(TrackElement[][] track);
+    public final int maxel1, maxel2, maxel3, maxel4;
+
 }
