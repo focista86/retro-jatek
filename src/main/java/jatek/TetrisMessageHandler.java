@@ -34,10 +34,10 @@ public class TetrisMessageHandler implements MessageHandler {
             if (actGame.isNewElement) {
                 i++;
                 System.out.println("+++++++++++++++++++ " + i);
-            }
-            Optimizer optimizer = new Optimizer();
-            if (actGame.tetrisElements != null) {
-                control.doMovmentList(optimizer.getBasicSolution(actGame.track, actGame.tetrisElements.getCurrent(), i));
+                Optimizer optimizer = new Optimizer();
+                if (actGame.tetrisElements != null) {
+                    control.doMovmentList(optimizer.getBasicSolution(actGame.track, actGame.tetrisElements.getCurrent(), i));
+                }
             }
         } else {
             System.out.println("GAME OVER");

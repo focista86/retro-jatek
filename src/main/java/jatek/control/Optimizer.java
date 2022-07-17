@@ -26,7 +26,7 @@ public class Optimizer {
         List<Movement> solution = new ArrayList<>();
 
         Movement rotate = rotateToBaseLine(current);
-        solution.add(rotate != null ? rotate : null);
+        solution.add(rotate);
         List<Movement> moves = moveToSides(track, itemCounter);
         solution.addAll(moves);
         return solution;
@@ -43,7 +43,7 @@ public class Optimizer {
     public List<Movement> getMostBasicSolution(TrackElement[][] track, TetrisElement current) {
         List<Movement> solution = new ArrayList<>();
         Movement rotate = rotateToBaseLine(current);
-        solution.add(rotate != null ? rotate : null);
+        solution.add(rotate);
         return solution;
     }
 

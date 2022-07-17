@@ -71,6 +71,9 @@ public class Control {
     }
 
     public void doMovement(Movement movement) {
+        if (movement == null) {
+            return;
+        }
         System.out.println("movement: " + movement);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
