@@ -54,7 +54,7 @@ public class Control {
         try {
             HttpEntity<String> request =
                     new HttpEntity<String>("{\"username\": \"" + game.user.getUsername() + "\"}", headers);
-            token = restTemplate.postForObject(" http://tetris-backend-svc.tetris.svc.cluster.local:8080/startGame", request, String.class);
+            token = restTemplate.postForObject("http://tetris-backend-svc.tetris.svc.cluster.local:8080/startGame", request, String.class);
 
             game.user.setToken(token);
         } catch (Exception e) {
