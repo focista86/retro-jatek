@@ -1,0 +1,20 @@
+nexus_url_prefix: docker-f1-snapshot-repo.idomsoft.hu
+imagePath: macska-marcik/retro-jatek
+
+
+image_pull_secret: true
+
+hmp_httpd_subdomain: retro-jatek
+router_url_suffix: platform-dev.idomsoft.hu
+
+limits:
+  cpu: 1000m
+  memory: 1024Mi
+requests:
+  cpu: 300m
+  memory: 256Mi
+
+java_opt:
+  xms: 64m
+  xmx: 512m
+  max_meta: 256m

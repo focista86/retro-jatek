@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-deployment"
+  labels:
+    app: "{{ .Release.Name }}"
+  namespace: "{{ .Release.Namespace }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      name: "{{ .Release.Name }}-pods"
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-container
+          image: '{{ .Values.nexus_url_prefix }}/{{.Values.imagePath}}:{{ .Chart.AppVersion }}'
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            limits:
+              cpu: {{ .Values.limits.cpu }}
+              memory: {{ .Values.limits.memory }}
+            requests:
+              cpu: {{ .Values.requests.cpu }}
+              memory: {{ .Values.requests.memory }}
+#          env:
+#            - name: JAVA_XMS
+#              value: '{{ .Values.java_opt.xms }}'
+#            - name: JAVA_XMX
+#              value: '{{ .Values.java_opt.xmx }}'
+#            - name: JAVA_MAX_META
+#              value: '{{ .Values.java_opt.max_meta }}'
+{{- if .Values.image_pull_secret }}
+      imagePullSecrets:
+        - name: "{{ .Release.Name }}-image-pull-secret"
+{{- end }}
