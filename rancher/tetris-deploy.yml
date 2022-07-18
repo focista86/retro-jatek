@@ -24,6 +24,15 @@ spec:
           env:
             - name: TZ
               value: 'Europe/Budapest'
+          volumeMounts:
+            - mountPath: "/data"
+              name: my-csi-inline-vol
+      volumes:
+        - name: my-csi-inline-vol
+          csi:
+            driver: inline.storage.kubernetes.io
+            volumeAttributes:
+              foo: bar
       securityContext:
         fsGroup: 2000
         runAsUser: 2000

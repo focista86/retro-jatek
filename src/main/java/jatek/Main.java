@@ -48,8 +48,8 @@ public class Main {
         String fname = "tetrisLog" + df.format(new Date()) + ".log";
         logger = Logger.getLogger(Main.class.getName());
         logger.addHandler(new ConsoleHandler());
-        Handler fileHandler = new FileHandler(fname, 2000, 5);
-        fileHandler.setFormatter(new SimpleFormatter());
+//        Handler fileHandler = new FileHandler(fname, 2000, 5);
+//        fileHandler.setFormatter(new SimpleFormatter());
         //setting custom filter for FileHandler
         //logger.addHandler(fileHandler);
     }
