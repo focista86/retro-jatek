@@ -51,6 +51,6 @@ public class Main {
         Handler fileHandler = new FileHandler(fname, 2000, 5);
         fileHandler.setFormatter(new SimpleFormatter());
         //setting custom filter for FileHandler
-        logger.addHandler(fileHandler);
+        //logger.addHandler(fileHandler);
     }
 }

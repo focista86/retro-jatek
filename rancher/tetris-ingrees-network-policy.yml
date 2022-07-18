@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: "mmm-allow-route"
+  namespace: "jarmu-lek-dev"
+spec:
+  ingress:
+    - ports:
+        - port: 8088
+          protocol: TCP
+  podSelector:
+    matchLabels:
+      app: mmm-tetris-deployment
+  policyTypes:
+    - Ingress

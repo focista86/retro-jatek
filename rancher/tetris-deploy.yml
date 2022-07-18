@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mmm-tetris-deployment
+spec:
+
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: mmm-tetris-deployment
+
+  template:
+    metadata:
+      labels:
+        app: mmm-tetris-deployment
+    spec:
+      containers:
+        - name: tetris-web
+          image: docker-f1-snapshot-repo.idomsoft.hu/hackathon/macska-marcik:latest
+          ports:
+            - containerPort: 8088
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: 'Europe/Budapest'
+      securityContext:
+        fsGroup: 2000
+        runAsUser: 2000
+      imagePullSecrets:
+        - name: regcred-repo
+
+
