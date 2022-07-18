@@ -1,0 +1,20 @@
+apiVersion: v1
+clusters:
+  - cluster:
+      server: https://console.platform-dev.idomsoft.hu/k8s/clusters/c-m-hlm2zjph
+    name: platform-dev
+  - cluster:
+      server: ""
+    name: platformdev
+contexts:
+  - context:
+      cluster: platform-dev
+      user: platform-dev
+    name: platform-dev
+current-context: platform-dev
+kind: Config
+preferences: {}
+users:
+  - name: platform-dev
+    user:
+      token: kubeconfig-u-4glldirehfzbf6n:5pk7mkkhswgzn5phrkblp9xrhsdtnrqwqlpfhj259dz2dnfmrpxs5q
