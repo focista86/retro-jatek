@@ -1,6 +1,5 @@
 package jatek.control;
 
-import jatek.constant.TetrisElement;
 import jatek.constant.TrackElement;
 import jatek.model.EmptySpace;
 import org.junit.Before;
@@ -17,69 +16,69 @@ public class Optimizer2Test {
 
     @Before
     public void setUp() throws Exception {
-        track = new TrackElement[12][4];
+        track = new TrackElement[4][12];
         // első sor
-        track[0][0] = TrackElement.POINT;
-        track[1][0] = TrackElement.POINT;
-        track[2][0] = TrackElement.EMPTY;
-        track[3][0] = TrackElement.POINT;
-        track[4][0] = TrackElement.POINT;
-        track[5][0] = TrackElement.EMPTY;
-        track[6][0] = TrackElement.EMPTY;
-        track[7][0] = TrackElement.POINT;
-        track[8][0] = TrackElement.POINT;
-        track[9][0] = TrackElement.EMPTY;
-        track[10][0] = TrackElement.EMPTY;
-        track[11][0] = TrackElement.POINT;
+        track[3][0 ] = TrackElement.POINT;
+        track[3][1 ] = TrackElement.POINT;
+        track[3][2 ] = TrackElement.EMPTY;
+        track[3][3 ] = TrackElement.POINT;
+        track[3][4 ] = TrackElement.POINT;
+        track[3][5 ] = TrackElement.EMPTY;
+        track[3][6 ] = TrackElement.EMPTY;
+        track[3][7 ] = TrackElement.POINT;
+        track[3][8 ] = TrackElement.POINT;
+        track[3][9 ] = TrackElement.EMPTY;
+        track[3][10] = TrackElement.EMPTY;
+        track[3][11] = TrackElement.POINT;
 
         // második sor
-        track[0][1] = TrackElement.POINT;
-        track[1][1] = TrackElement.POINT;
-        track[2][1] = TrackElement.EMPTY;
-        track[3][1] = TrackElement.EMPTY;
-        track[4][1] = TrackElement.POINT;
-        track[5][1] = TrackElement.EMPTY;
-        track[6][1] = TrackElement.EMPTY;
-        track[7][1] = TrackElement.POINT;
-        track[8][1] = TrackElement.POINT;
-        track[9][1] = TrackElement.EMPTY;
-        track[10][1] = TrackElement.EMPTY;
-        track[11][1] = TrackElement.POINT;
+        track[2][0 ]= TrackElement.POINT;
+        track[2][1 ]= TrackElement.POINT;
+        track[2][2 ]= TrackElement.EMPTY;
+        track[2][3 ]= TrackElement.EMPTY;
+        track[2][4 ]= TrackElement.POINT;
+        track[2][5 ]= TrackElement.EMPTY;
+        track[2][6 ]= TrackElement.EMPTY;
+        track[2][7 ]= TrackElement.POINT;
+        track[2][8 ]= TrackElement.POINT;
+        track[2][9 ]= TrackElement.EMPTY;
+        track[2][10] = TrackElement.EMPTY;
+        track[2][11] = TrackElement.POINT;
 
         // harmadik sor
-        track[0][2] = TrackElement.EMPTY;
-        track[1][2] = TrackElement.EMPTY;
-        track[2][2] = TrackElement.EMPTY;
-        track[3][2] = TrackElement.EMPTY;
-        track[4][2] = TrackElement.EMPTY;
-        track[5][2] = TrackElement.EMPTY;
-        track[6][2] = TrackElement.EMPTY;
-        track[7][2] = TrackElement.EMPTY;
-        track[8][2] = TrackElement.EMPTY;
-        track[9][2] = TrackElement.EMPTY;
-        track[10][2] = TrackElement.EMPTY;
-        track[11][2] = TrackElement.POINT;
+        track[1][0 ]= TrackElement.EMPTY;
+        track[1][1 ]= TrackElement.EMPTY;
+        track[1][2 ]= TrackElement.EMPTY;
+        track[1][3 ]= TrackElement.EMPTY;
+        track[1][4 ]= TrackElement.EMPTY;
+        track[1][5 ]= TrackElement.EMPTY;
+        track[1][6 ]= TrackElement.EMPTY;
+        track[1][7 ]= TrackElement.EMPTY;
+        track[1][8 ]= TrackElement.EMPTY;
+        track[1][9 ]= TrackElement.EMPTY;
+        track[1][10] = TrackElement.EMPTY;
+        track[1][11] = TrackElement.POINT;
 
         // negyedik sor
-        track[0][3] = TrackElement.EMPTY;
-        track[1][3] = TrackElement.EMPTY;
-        track[2][3] = TrackElement.EMPTY;
-        track[3][3] = TrackElement.EMPTY;
-        track[4][3] = TrackElement.EMPTY;
-        track[5][3] = TrackElement.EMPTY;
-        track[6][3] = TrackElement.EMPTY;
-        track[7][3] = TrackElement.EMPTY;
-        track[8][3] = TrackElement.EMPTY;
-        track[9][3] = TrackElement.EMPTY;
-        track[10][3] = TrackElement.EMPTY;
-        track[11][3] = TrackElement.EMPTY;
+        track[0][0 ]= TrackElement.EMPTY;
+        track[0][1 ]= TrackElement.EMPTY;
+        track[0][2 ]= TrackElement.EMPTY;
+        track[0][3 ]= TrackElement.EMPTY;
+        track[0][4 ]= TrackElement.EMPTY;
+        track[0][5 ]= TrackElement.EMPTY;
+        track[0][6 ]= TrackElement.EMPTY;
+        track[0][7 ]= TrackElement.EMPTY;
+        track[0][8 ]= TrackElement.EMPTY;
+        track[0][9 ]= TrackElement.EMPTY;
+        track[0][10] = TrackElement.EMPTY;
+        track[0][11] = TrackElement.EMPTY;
 
 
     }
 
     @Test
     public void calculateHoles() {
-        List<EmptySpace> holeList = optimizer.calculateHoles(track);
-        assertEquals(3, holeList.size());
+        List<EmptySpace> holeList = optimizer.calculateHoles(track, 3);
+        assertEquals(7, holeList.size());
     }
 }
