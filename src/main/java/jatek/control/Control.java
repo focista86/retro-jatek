@@ -54,7 +54,7 @@ public class Control {
         try {
             HttpEntity<String> request =
                     new HttpEntity<String>("{\"username\": \"" + game.user.getUsername() + "\"}", headers);
-            token = restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/startGame", request, String.class);
+            token = restTemplate.postForObject(" http://tetris-backend-svc.tetris.svc.cluster.local:8080/startGame", request, String.class);
 
             game.user.setToken(token);
         } catch (Exception e) {
@@ -84,7 +84,7 @@ public class Control {
         HttpEntity<String> request =
                 new HttpEntity<String>("{\"username\": \"macskaMarcik\"}", headers);
         System.out.println("MOVEMENT: " +
-                restTemplate.postForObject("https://tetris-backend.platform-dev.idomsoft.hu/control?movement="+ movement.toString(), request, String.class));
+                restTemplate.postForObject("http://tetris-backend-svc.tetris.svc.cluster.local:8080/control?movement="+ movement.toString(), request, String.class));
     }
 
     public void moveLeft() {
