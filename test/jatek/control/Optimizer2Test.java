@@ -78,7 +78,12 @@ public class Optimizer2Test {
 
     @Test
     public void calculateHoles() {
-        List<EmptySpace> holeList = optimizer.calculateHoles(track, 3);
+        List<EmptySpace> holeList = optimizer.calculateHoles(track, 3, 0);
         assertEquals(7, holeList.size());
+    }
+    @Test
+    public void calculateOneThird() {
+        boolean result = optimizer.calculateOneThird(track);
+        assertTrue(result);
     }
 }

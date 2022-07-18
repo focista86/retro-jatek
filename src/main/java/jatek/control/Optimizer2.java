@@ -14,11 +14,33 @@ import static java.lang.Math.abs;
 public class Optimizer2 {
 
     public List<Movement> elmebaj1(TrackElement[][] track, TetrisElement current, int itemCounter) {
+        boolean isOneThird = calculateOneThird(track);
+        List<EmptySpace> holes;
+//        if (isOneThird) {
+//            holes = calculateHoles(track, track.length-1, 1);
+//        } else {
+            holes = calculateHoles(track, track.length-1, 0);
+//        }
 
-        return emptySpaceFill(calculateHoles(track, track.length-1), current, track[0].length);
+        List<Movement> result = emptySpaceFill(holes, current, track[0].length, isOneThird);
+        int i = 1;
+        while (result == null && i < 5) {
+            holes = calculateHoles(track, track.length-1, i);
+            result = emptySpaceFill(holes, current, track[0].length, isOneThird);
+            i++;
+        }
+        return result;
     }
+
+    public boolean calculateOneThird(TrackElement[][] track) {
+        List<Integer> heights = calculateHeights(track);
+        int maxHeight = calculateMaximumHeight(heights);
+        return track.length / 2 < maxHeight;
+    }
+
+
     //ha null akkor az getBasicSolution-t kell hívni !!!!!!
-    public List<Movement> emptySpaceFill(List<EmptySpace> emptySpaceList, TetrisElement current, int tableLength){
+    public List<Movement> emptySpaceFill(List<EmptySpace> emptySpaceList, TetrisElement current, int tableLength, boolean isOneThird){
         List<Movement> solution = null;
 
         for (Integer elHossza : current.elHosszList) {
@@ -102,22 +124,10 @@ public class Optimizer2 {
         }
     }
 
-    public List<EmptySpace> calculateHoles(TrackElement[][] track, int lineCount) {
+    public List<EmptySpace> calculateHoles(TrackElement[][] track, int lineCount, int baseLine) {
         List<EmptySpace> list = new ArrayList<>();
-        List<Integer> heights = new ArrayList<>();
-        int maxHeight;
-        // oszlopokon végigmegyünk
-        for (int i = 0; i < track[0].length; i++) {
-            maxHeight = 0;
-            // oszlopon belül a sorokon, alulról fölfele
-            for (int j = track.length - 1 ; j > 0; j--) {
-                if (track[j][i].equals(TrackElement.POINT)) {
-                    maxHeight = track.length - j;
-                }
-            }
-            heights.add( maxHeight);
-        }
-        int minHeight = calculateMinimumHeight(heights);
+        List<Integer> heights = calculateHeights(track);
+        int minHeight = calculateMinimumHeight(heights) + baseLine;
         for (int k = 0; k < lineCount; k++) {
             int i = 0;
             while (i < heights.size()) {
@@ -173,7 +183,27 @@ public class Optimizer2 {
         return list;
     }
 
+    private List<Integer> calculateHeights(TrackElement[][] track) {
+        List<Integer> heights = new ArrayList<>();
+        int maxHeight;
+        // oszlopokon végigmegyünk
+        for (int i = 0; i < track[0].length; i++) {
+            maxHeight = 0;
+            // oszlopon belül a sorokon, alulról fölfele
+            for (int j = track.length - 1; j > 0; j--) {
+                if (track[j][i].equals(TrackElement.POINT)) {
+                    maxHeight = track.length - j;
+                }
+            }
+            heights.add( maxHeight);
+        }
+        return heights;
+    }
+
     private int calculateMinimumHeight(List<Integer> heights) {
         return heights.stream().min(Integer::compare).get();
+    }
+    private int calculateMaximumHeight(List<Integer> heights) {
+        return heights.stream().max(Integer::compare).get();
     }
 }
