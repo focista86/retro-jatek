@@ -2,20 +2,29 @@ package jatek;
 
 import jatek.control.Control;
 import jatek.model.Game;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.*;
 
+@SpringBootApplication
 public class Main {
 
     public static Logger logger;
     public static WebsocketClientEndpoint clientEndPoint;
     private static Control control;
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
+        SpringApplication.run(Main.class);
+    }
+
+    @PostConstruct
+    private void start(){
         System.out.println("Hajrá MacskaMarcik!");
         try{
             startLogger();
